@@ -1,0 +1,36 @@
+# Dependências do Node.js
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Diretórios de build/output
+dist/
+build/
+
+# Cache
+.cache/
+
+# Relatórios de cobertura de testes
+coverage/
+
+# Arquivos de ambiente (API keys, configs locais)
+.env
+.env.local
+.env.*.local
+
+# Diretórios de IDE e editores
+.vscode/
+.idea/
+
+# Arquivos do sistema operacional
+.DS_Store        # macOS
+Thumbs.db        # Windows
+
+# Arquivos temporários de backup
+*.swp            # Vim/editores de texto
+
+# Arquivos gerados por ferramentas de build (se estiver usando)
+*.tsbuildinfo    # Informações de build do TypeScript (se aplicar)
