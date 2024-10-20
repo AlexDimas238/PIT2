@@ -10,63 +10,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   setInterval(updateDateTime, 1000); // Atualiza a cada segundo
 
-  // Função para obter e exibir o clima com base na cidade selecionada
-  async function getWeather(city) {
+  // Função para obter e exibir o clima com base nas coordenadas fornecidas
+  async function getWeather(latitude, longitude) {
     try {
-      const response = await fetch(`/weather?city=${city}`);
+      const response = await fetch(
+        `/weather?latitude=${latitude}&longitude=${longitude}`
+      );
       const data = await response.json();
       const weatherDiv = document.getElementById("weather");
-      weatherDiv.textContent = `Clima em ${city}: ${data.weather}`;
+      weatherDiv.textContent = `
+              Clima: ${data.phrase}, Temperatura: ${data.temperature}, Sensação térmica: ${data.realFeelTemperature},
+              Vento: ${data.windSpeed}, Umidade: ${data.humidity}
+          `;
     } catch (error) {
-      console.error("Falha ao buscar o clima:", error);
+      console.error("Erro ao buscar o clima:", error);
     }
   }
 
-  // Adicionando evento de clique ao botão de confirmar cidade
-  const confirmCityButton = document.getElementById("confirm-city-btn");
-  confirmCityButton.addEventListener("click", () => {
-    const citySelect = document.getElementById("city-select");
-    const selectedCity = citySelect.value;
-    getWeather(selectedCity); // Atualiza o clima da cidade selecionada
+  // Carrega o clima para uma localização padrão ao iniciar a página (São Paulo)
+  getWeather("-23.5505", "-46.6333");
+
+  // Exibe clima ao confirmar as coordenadas da cidade
+  document.getElementById("confirm-city-btn").addEventListener("click", () => {
+    const latitude = document.getElementById("latitude").value;
+    const longitude = document.getElementById("longitude").value;
+    getWeather(latitude, longitude);
   });
-
-  // Carrega o clima da cidade padrão (São Paulo) ao iniciar a página
-  getWeather("São Paulo");
-
-  // Gerenciamento de tarefas
-  const taskList = [];
-  const taskUl = document.getElementById("tasks");
-
-  // Função para renderizar as tarefas na lista
-  function renderTasks() {
-    taskUl.innerHTML = ""; // Limpa a lista antes de renderizar novamente
-    taskList.forEach((task) => {
-      const li = document.createElement("li");
-      li.textContent = `${task.name} - ${task.time}`;
-      taskUl.appendChild(li);
-    });
-  }
-
-  // Função para adicionar uma nova tarefa
-  function addTask() {
-    const taskInput = document.getElementById("new-task");
-    const taskTimeInput = document.getElementById("task-time");
-
-    // Verifica se o campo da tarefa não está vazio
-    if (taskInput.value.trim() !== "" && taskTimeInput.value !== "") {
-      taskList.push({
-        name: taskInput.value,
-        time: taskTimeInput.value,
-      });
-      renderTasks(); // Atualiza a lista de tarefas
-      taskInput.value = ""; // Limpa o campo de texto
-      taskTimeInput.value = ""; // Limpa o campo de horário
-    } else {
-      alert("Por favor, preencha a tarefa e o horário.");
-    }
-  }
-
-  // Adicionando evento de clique ao botão de adicionar tarefa
-  const addTaskButton = document.getElementById("add-task-btn");
-  addTaskButton.addEventListener("click", addTask);
 });

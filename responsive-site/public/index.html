@@ -33,8 +33,18 @@
 
       <!-- Gerenciamento de tarefas -->
       <div id="task-list">
-        <h2>Suas Tarefas</h2>
-        <ul id="tasks"></ul>
+        <h2>Suas Tarefas de Hoje</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Horário</th>
+            </tr>
+          </thead>
+          <tbody id="tasks">
+            <!-- As tarefas serão renderizadas aqui -->
+          </tbody>
+        </table>
 
         <!-- Campo para adicionar tarefa -->
         <input type="text" id="new-task" placeholder="Digite uma nova tarefa" />
