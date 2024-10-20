@@ -1,0 +1,25 @@
+const capitaisBrasileiras = [
+  { nome: "Brasília", coordenadas: "-15.7801,-47.9292" },
+  { nome: "São Paulo", coordenadas: "-23.5505,-46.6333" },
+  { nome: "Rio de Janeiro", coordenadas: "-22.9068,-43.1729" },
+  { nome: "Salvador", coordenadas: "-12.9714,-38.5014" },
+  { nome: "Fortaleza", coordenadas: "-3.7172,-38.5434" },
+  { nome: "Recife", coordenadas: "-8.0476,-34.8770" },
+  { nome: "Belém", coordenadas: "-1.4558,-48.4902" },
+  { nome: "Belo Horizonte", coordenadas: "-19.9167,-43.9345" },
+  { nome: "Cuiabá", coordenadas: "-15.6010,-56.0979" },
+  { nome: "Manaus", coordenadas: "-3.1019,-60.0250" },
+  { nome: "Florianópolis", coordenadas: "-27.5954,-48.5480" },
+  { nome: "Curitiba", coordenadas: "-25.4296,-49.2713" },
+  { nome: "Porto Alegre", coordenadas: "-30.0346,-51.2177" },
+  { nome: "Goiânia", coordenadas: "-16.6869,-49.2648" },
+  { nome: "Vitória", coordenadas: "-20.3155,-40.3128" },
+  { nome: "Maceió", coordenadas: "-9.6499,-35.7089" },
+  { nome: "Aracaju", coordenadas: "-10.9472,-37.0731" },
+  { nome: "São Luís", coordenadas: "-2.5307,-44.3068" },
+  { nome: "Palmas", coordenadas: "-9.4096,-40.5030" },
+  { nome: "Boa Vista", coordenadas: "2.8198,-60.6730" },
+  { nome: "Macapá", coordenadas: "0.0340,-51.0705" },
+];
+
+module.exports = capitaisBrasileiras;

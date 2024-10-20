@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
-const getWeather = require("./weather"); // Importando a função que busca o clima
+const getWeather = require("./weather");
+const capitaisBrasileiras = require("./capitaisBrasileiras"); // Importando a lista de capitais
 
 const app = express();
 const PORT = 3000;
@@ -10,14 +11,22 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // Rota para obter o clima com base nas coordenadas
 app.get("/weather", async (req, res) => {
-  const latitude = req.query.latitude || "-23.5505"; // Latitude padrão (São Paulo)
-  const longitude = req.query.longitude || "-46.6333"; // Longitude padrão (São Paulo)
+  const coordinates = req.query.coordinates;
+  if (!coordinates) {
+    return res.status(400).json({ error: "Coordenadas não fornecidas" });
+  }
+  const [latitude, longitude] = coordinates.split(",");
   try {
     const weatherData = await getWeather(latitude, longitude);
     res.json(weatherData);
   } catch (error) {
     res.status(500).json({ error: "Erro ao buscar o clima" });
   }
+});
+
+// Rota para retornar a lista de capitais brasileiras
+app.get("/capitais", (req, res) => {
+  res.json(capitaisBrasileiras);
 });
 
 // Iniciar o servidor

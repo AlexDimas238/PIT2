@@ -11,11 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(updateDateTime, 1000); // Atualiza a cada segundo
 
   // Função para obter e exibir o clima com base nas coordenadas fornecidas
-  async function getWeather(latitude, longitude) {
+  async function getWeather(coordinates) {
     try {
-      const response = await fetch(
-        `/weather?latitude=${latitude}&longitude=${longitude}`
-      );
+      const response = await fetch(`/weather?coordinates=${coordinates}`);
       const data = await response.json();
       const weatherDiv = document.getElementById("weather");
       weatherDiv.textContent = `
@@ -27,13 +25,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Carrega o clima para uma localização padrão ao iniciar a página (São Paulo)
-  getWeather("-23.5505", "-46.6333");
+  // Função para carregar dinamicamente a lista de capitais
+  async function loadCapitais() {
+    try {
+      const response = await fetch("/capitais");
+      const capitais = await response.json();
+      const citySelect = document.getElementById("city-select");
+      capitais.forEach((capital) => {
+        const option = document.createElement("option");
+        option.value = capital.coordenadas;
+        option.textContent = capital.nome;
+        citySelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Erro ao carregar as capitais:", error);
+    }
+  }
 
-  // Exibe clima ao confirmar as coordenadas da cidade
+  // Evento para exibir o clima ao clicar no botão
   document.getElementById("confirm-city-btn").addEventListener("click", () => {
-    const latitude = document.getElementById("latitude").value;
-    const longitude = document.getElementById("longitude").value;
-    getWeather(latitude, longitude);
+    const citySelect = document.getElementById("city-select");
+    const coordinates = citySelect.value;
+    getWeather(coordinates); // Envia as coordenadas para a função getWeather
   });
+
+  // Carregar a lista de capitais ao iniciar a página
+  loadCapitais();
+
+  // Carrega o clima para uma localização padrão ao iniciar a página (Brasília)
+  getWeather("-15.7801,-47.9292");
 });
