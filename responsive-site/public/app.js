@@ -22,13 +22,51 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Elemento seletor de cidades
-  const citySelect = document.getElementById("city-select");
-  citySelect.addEventListener("change", (event) => {
-    const selectedCity = event.target.value;
-    getWeather(selectedCity); // Atualiza o clima quando a cidade é alterada
+  // Adicionando evento de clique ao botão de confirmar cidade
+  const confirmCityButton = document.getElementById("confirm-city-btn");
+  confirmCityButton.addEventListener("click", () => {
+    const citySelect = document.getElementById("city-select");
+    const selectedCity = citySelect.value;
+    getWeather(selectedCity); // Atualiza o clima da cidade selecionada
   });
 
-  // Carrega o clima da cidade padrão (São Paulo)
-  getWeather(citySelect.value);
+  // Carrega o clima da cidade padrão (São Paulo) ao iniciar a página
+  getWeather("São Paulo");
+
+  // Gerenciamento de tarefas
+  const taskList = [];
+  const taskUl = document.getElementById("tasks");
+
+  // Função para renderizar as tarefas na lista
+  function renderTasks() {
+    taskUl.innerHTML = ""; // Limpa a lista antes de renderizar novamente
+    taskList.forEach((task) => {
+      const li = document.createElement("li");
+      li.textContent = `${task.name} - ${task.time}`;
+      taskUl.appendChild(li);
+    });
+  }
+
+  // Função para adicionar uma nova tarefa
+  function addTask() {
+    const taskInput = document.getElementById("new-task");
+    const taskTimeInput = document.getElementById("task-time");
+
+    // Verifica se o campo da tarefa não está vazio
+    if (taskInput.value.trim() !== "" && taskTimeInput.value !== "") {
+      taskList.push({
+        name: taskInput.value,
+        time: taskTimeInput.value,
+      });
+      renderTasks(); // Atualiza a lista de tarefas
+      taskInput.value = ""; // Limpa o campo de texto
+      taskTimeInput.value = ""; // Limpa o campo de horário
+    } else {
+      alert("Por favor, preencha a tarefa e o horário.");
+    }
+  }
+
+  // Adicionando evento de clique ao botão de adicionar tarefa
+  const addTaskButton = document.getElementById("add-task-btn");
+  addTaskButton.addEventListener("click", addTask);
 });

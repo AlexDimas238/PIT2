@@ -15,7 +15,7 @@ body {
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  max-width: 350px;
+  max-width: 400px;
   width: 100%;
 }
 
@@ -34,6 +34,36 @@ h1 {
   background-color: #f7f7f7;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #555;
+}
+
+.city-selector {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#city-select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#confirm-city-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#confirm-city-btn:hover {
+  background-color: #005fa3;
 }
 
 #weather {
@@ -67,6 +97,15 @@ input {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 10px;
+}
+
+input[type="time"] {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  width: calc(100% - 30px);
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 button {

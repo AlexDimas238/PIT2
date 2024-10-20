@@ -1,24 +1,51 @@
-<div class="container">
-  <h1>Bem-vindo ao seu Aplicativo de Agenda</h1>
-  <div id="datetime"></div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aplicativo de Agenda Responsivo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Bem-vindo ao seu Aplicativo de Agenda</h1>
 
-  <label for="city-select">Selecione a cidade para o clima:</label>
-  <select id="city-select">
-    <option value="São Paulo">São Paulo</option>
-    <option value="Rio de Janeiro">Rio de Janeiro</option>
-    <option value="Belo Horizonte">Belo Horizonte</option>
-    <option value="Curitiba">Curitiba</option>
-    <option value="Salvador">Salvador</option>
-    <option value="Brasília">Brasília</option>
-    <option value="Fortaleza">Fortaleza</option>
-  </select>
+      <!-- Exibe data e horário no formato brasileiro -->
+      <div id="datetime"></div>
 
-  <div id="weather"></div>
+      <!-- Seletor de cidades -->
+      <label for="city-select">Selecione uma cidade para o clima:</label>
+      <div class="city-selector">
+        <select id="city-select">
+          <option value="São Paulo">São Paulo</option>
+          <option value="Rio de Janeiro">Rio de Janeiro</option>
+          <option value="Belo Horizonte">Belo Horizonte</option>
+          <option value="Curitiba">Curitiba</option>
+          <option value="Salvador">Salvador</option>
+          <option value="Brasília">Brasília</option>
+          <option value="Fortaleza">Fortaleza</option>
+        </select>
+        <button id="confirm-city-btn">Confirmar</button>
+      </div>
 
-  <div id="task-list">
-    <h2>Suas Tarefas</h2>
-    <ul id="tasks"></ul>
-    <input type="text" id="new-task" placeholder="Adicionar nova tarefa" />
-    <button>Adicionar Tarefa</button>
-  </div>
-</div>
+      <!-- Exibe o clima da cidade selecionada -->
+      <div id="weather"></div>
+
+      <!-- Gerenciamento de tarefas -->
+      <div id="task-list">
+        <h2>Suas Tarefas</h2>
+        <ul id="tasks"></ul>
+
+        <!-- Campo para adicionar tarefa -->
+        <input type="text" id="new-task" placeholder="Digite uma nova tarefa" />
+
+        <!-- Campo para selecionar horário da tarefa -->
+        <input type="time" id="task-time" />
+
+        <button id="add-task-btn">Adicionar Tarefa</button>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
