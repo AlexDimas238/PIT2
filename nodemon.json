@@ -1,0 +1,6 @@
+{
+  "watch": ["responsive-site/src"],
+  "ext": "js,json",
+  "ignore": ["node_modules"],
+  "exec": "node responsive-site/src/app.js"
+}

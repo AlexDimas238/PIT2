@@ -1,9 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
-</html>
+<div class="container">
+  <h1>Bem-vindo ao seu Aplicativo de Agenda</h1>
+  <div id="datetime"></div>
+
+  <label for="city-select">Selecione a cidade para o clima:</label>
+  <select id="city-select">
+    <option value="São Paulo">São Paulo</option>
+    <option value="Rio de Janeiro">Rio de Janeiro</option>
+    <option value="Belo Horizonte">Belo Horizonte</option>
+    <option value="Curitiba">Curitiba</option>
+    <option value="Salvador">Salvador</option>
+    <option value="Brasília">Brasília</option>
+    <option value="Fortaleza">Fortaleza</option>
+  </select>
+
+  <div id="weather"></div>
+
+  <div id="task-list">
+    <h2>Suas Tarefas</h2>
+    <ul id="tasks"></ul>
+    <input type="text" id="new-task" placeholder="Adicionar nova tarefa" />
+    <button>Adicionar Tarefa</button>
+  </div>
+</div>
