@@ -24,6 +24,30 @@
 
       <!-- Exibe o clima -->
       <div id="weather"></div>
+
+      <!-- Gerenciamento de Tarefas -->
+      <div id="task-list">
+        <h2>Suas Tarefas</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Horário</th>
+            </tr>
+          </thead>
+          <tbody id="tasks">
+            <!-- As tarefas serão renderizadas aqui -->
+          </tbody>
+        </table>
+
+        <!-- Campo para adicionar tarefa -->
+        <input type="text" id="new-task" placeholder="Digite uma nova tarefa" />
+
+        <!-- Campo para selecionar horário da tarefa -->
+        <input type="time" id="task-time" />
+
+        <button id="add-task-btn">Adicionar Tarefa</button>
+      </div>
     </div>
 
     <script src="app.js"></script>
