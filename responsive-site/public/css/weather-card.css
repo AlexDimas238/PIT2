@@ -1,0 +1,50 @@
+.weather-card {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Poppins", sans-serif; /* Fonte arredondada */
+}
+
+.weather-card {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.weather-item {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.weather-item p {
+  margin: 0;
+}
+
+.weather-item p:hover {
+  transform: scale(1.1);
+}
+
+.weather-item[data-type="temperature"] {
+  color: red;
+}
+
+.weather-item[data-type="low-temperature"] {
+  color: blue;
+}
+
+.weather-item[data-type="real-feel"] {
+  color: orange;
+}
+
+.weather-item[data-type="humidity"] {
+  color: green;
+}
+
+.weather-item[data-type="wind"] {
+  color: purple;
+}

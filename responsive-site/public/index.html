@@ -4,13 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aplicativo de Clima e Agenda</title>
-    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/weather-card.css" />
   </head>
   <body>
     <div class="container">
-      <h1>Bem-vindo ao seu Aplicativo de Clima e Agenda</h1>
+      <h1>Bem-vindo ao Aplicativo de Clima e Agenda</h1>
 
-      <!-- Exibe data e horário no formato brasileiro -->
+      <!-- Seção de Data e Hora -->
       <div id="datetime"></div>
 
       <!-- Seleção de Capitais Brasileiras -->
@@ -22,8 +27,10 @@
         <button id="confirm-city-btn">Obter Clima</button>
       </div>
 
-      <!-- Exibe o clima -->
-      <div id="weather"></div>
+      <!-- Cartão de Clima -->
+      <div id="weather-card" class="weather-card">
+        <div id="weather-details" class="weather-details"></div>
+      </div>
 
       <!-- Gerenciamento de Tarefas -->
       <div id="task-list">
@@ -35,21 +42,149 @@
               <th>Horário</th>
             </tr>
           </thead>
-          <tbody id="tasks">
-            <!-- As tarefas serão renderizadas aqui -->
-          </tbody>
+          <tbody id="tasks"></tbody>
         </table>
 
-        <!-- Campo para adicionar tarefa -->
+        <!-- Formulário de Nova Tarefa -->
         <input type="text" id="new-task" placeholder="Digite uma nova tarefa" />
-
-        <!-- Campo para selecionar horário da tarefa -->
         <input type="time" id="task-time" />
-
         <button id="add-task-btn">Adicionar Tarefa</button>
       </div>
     </div>
 
-    <script src="app.js"></script>
+    <!-- Script para JavaScript de clima e agenda -->
+    <script>
+      // Função para obter o nome do dia da semana em português
+      function getDayOfWeek(date) {
+        const daysOfWeek = [
+          "Domingo",
+          "Segunda-feira",
+          "Terça-feira",
+          "Quarta-feira",
+          "Quinta-feira",
+          "Sexta-feira",
+          "Sábado",
+        ];
+        return daysOfWeek[date.getDay()];
+      }
+
+      // Exibe data e hora no formato brasileiro
+      function updateDateTime() {
+        const now = new Date();
+        const dayOfWeek = getDayOfWeek(now);
+        const formattedDate = now.toLocaleDateString("pt-BR", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+        const formattedTime = now.toLocaleTimeString("pt-BR");
+
+        const datetimeDiv = document.getElementById("datetime");
+        if (datetimeDiv) {
+          datetimeDiv.textContent = `${dayOfWeek}, ${formattedDate} ${formattedTime}`;
+        }
+      }
+
+      setInterval(updateDateTime, 1000); // Atualiza a cada segundo
+
+      // Função para carregar a lista de capitais
+      async function loadCapitais() {
+        try {
+          const response = await fetch("/capitais");
+          if (!response.ok) throw new Error("Erro ao buscar capitais");
+          const capitais = await response.json();
+          const citySelect = document.getElementById("city-select");
+          capitais.forEach((capital) => {
+            const option = document.createElement("option");
+            option.value = capital.coordenadas;
+            option.textContent = capital.nome;
+            citySelect.appendChild(option);
+          });
+        } catch (error) {
+          console.error("Erro ao carregar as capitais:", error);
+        }
+      }
+
+      // Função para buscar o clima
+      async function getWeather(coordinates) {
+        try {
+          const response = await fetch(`/weather?coordinates=${coordinates}`);
+          const data = await response.json();
+
+          const weatherDiv = document.getElementById("weather-details");
+
+          // Exibir os detalhes do clima no HTML
+          weatherDiv.innerHTML = `
+            <p>Temperatura: ${data.temperature}</p>
+            <p>Sensação: ${data.realFeelTemperature}</p>
+            <p>Umidade: ${data.humidity}</p>
+            <p>Vento: ${data.windSpeed}</p>
+          `;
+        } catch (error) {
+          console.error("Erro ao buscar o clima:", error);
+        }
+      }
+
+      // Evento para capturar o clique no botão de confirmação da cidade
+      document
+        .getElementById("confirm-city-btn")
+        .addEventListener("click", () => {
+          const citySelect = document.getElementById("city-select");
+          const coordinates = citySelect.value;
+          if (coordinates) {
+            getWeather(coordinates);
+          } else {
+            alert("Por favor, selecione uma cidade válida.");
+          }
+        });
+
+      // Função para adicionar uma nova tarefa
+      const taskList = [];
+      const taskUl = document.getElementById("tasks");
+
+      function renderTasks() {
+        taskUl.innerHTML = ""; // Limpa a lista antes de renderizar
+        taskList.sort((a, b) => a.time.localeCompare(b.time)); // Ordena as tarefas por horário
+        taskList.forEach((task) => {
+          const row = document.createElement("tr");
+          const descriptionCell = document.createElement("td");
+          const timeCell = document.createElement("td");
+
+          descriptionCell.textContent = task.name.toUpperCase();
+          timeCell.textContent = task.time;
+
+          row.appendChild(descriptionCell);
+          row.appendChild(timeCell);
+          taskUl.appendChild(row);
+        });
+      }
+
+      function addTask() {
+        const taskInput = document.getElementById("new-task");
+        const taskTimeInput = document.getElementById("task-time");
+        const taskDescription = taskInput.value.trim();
+
+        if (
+          /^[a-zA-Z\s]+$/.test(taskDescription) &&
+          taskTimeInput.value !== ""
+        ) {
+          taskList.push({ name: taskDescription, time: taskTimeInput.value });
+          renderTasks();
+          taskInput.value = ""; // Limpa o campo de texto
+          taskTimeInput.value = ""; // Limpa o campo de horário
+        } else {
+          alert(
+            "Por favor, preencha a tarefa com texto válido e selecione um horário."
+          );
+        }
+      }
+
+      document
+        .getElementById("add-task-btn")
+        .addEventListener("click", addTask);
+
+      // Inicializar o carregamento das capitais e a data/hora
+      document.addEventListener("DOMContentLoaded", loadCapitais);
+    </script>
   </body>
 </html>

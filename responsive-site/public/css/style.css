@@ -9,6 +9,10 @@ body {
   background-color: #f0f0f0;
 }
 
+body {
+  font-family: "Poppins", sans-serif !important; /* Forçar a aplicação da fonte */
+}
+
 .container {
   text-align: center;
   background-color: white;
@@ -97,15 +101,6 @@ input {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 10px;
-}
-
-input[type="time"] {
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 1rem;
-  width: calc(100% - 30px);
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
 button {
