@@ -1,3 +1,26 @@
+// Função para buscar a localização do usuário e carregar o clima automaticamente
+function getUserLocationAndWeather() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const coordinates = `${latitude},${longitude}`;
+        getWeather(coordinates); // Chama a função para buscar o clima com as coordenadas
+      },
+      (error) => {
+        console.error("Erro ao obter localização do usuário:", error);
+        alert(
+          "Não foi possível obter sua localização. Selecione uma cidade manualmente."
+        );
+      }
+    );
+  } else {
+    alert(
+      "Geolocalização não é suportada pelo seu navegador. Selecione uma cidade manualmente."
+    );
+  }
+}
+
 async function getWeather(coordinates) {
   try {
     const response = await fetch(`/weather?coordinates=${coordinates}`);
@@ -11,47 +34,23 @@ async function getWeather(coordinates) {
       return;
     }
 
-    // Definir a cor da temperatura com base no valor
-    const temperatureColor =
-      data.temperature >= 30
-        ? "red"
-        : data.temperature <= 15
-        ? "blue"
-        : "orange";
-    const realFeelColor =
-      data.realFeelTemperature >= 30
-        ? "red"
-        : data.realFeelTemperature <= 15
-        ? "blue"
-        : "orange";
-    const humidityColor =
-      data.humidity >= 70 ? "blue" : data.humidity <= 30 ? "orange" : "green";
-    const windColor =
-      data.windSpeed >= 20
-        ? "purple"
-        : data.windSpeed <= 5
-        ? "green"
-        : "orange";
-
-    // Estilizar e exibir as informações do clima
+    // Exibir os detalhes do clima no HTML
     weatherDiv.innerHTML = `
-      <div class="weather-item" style="color: ${temperatureColor};">
-        <p>Temperatura: ${data.temperature}°C</p>
-      </div>
-      <div class="weather-item" style="color: ${realFeelColor};">
-        <p>Sensação Térmica: ${data.realFeelTemperature}°C</p>
-      </div>
-      <div class="weather-item" style="color: ${humidityColor};">
-        <p>Umidade: ${data.humidity}%</p>
-      </div>
-      <div class="weather-item" style="color: ${windColor};">
-        <p>Velocidade do Vento: ${data.windSpeed} km/h</p>
-      </div>
+    <p>${data.temperature}</p>
+    <p>Sensação: ${data.realFeelTemperature}</p>
+    <p>Umidade: ${data.humidity}</p>
+    <p>Vento: ${data.windSpeed} </p>
     `;
   } catch (error) {
     console.error("Erro ao buscar o clima:", error);
   }
 }
+
+// Inicializar o carregamento das capitais, data/hora e a geolocalização
+document.addEventListener("DOMContentLoaded", () => {
+  loadCapitais(); // Carregar a lista de capitais
+  getUserLocationAndWeather(); // Tentar carregar o clima com base na localização do usuário
+});
 
 // Evento para capturar o clique no botão de confirmação da cidade
 document.getElementById("confirm-city-btn").addEventListener("click", () => {
