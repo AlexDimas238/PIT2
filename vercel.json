@@ -1,0 +1,4 @@
+{
+  "public": "responsive-site/public",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
