@@ -4,10 +4,15 @@ const getWeather = require("./weather");
 const capitaisBrasileiras = require("./capitaisBrasileiras"); // Importando a lista de capitais
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Servir arquivos estáticos da pasta 'public'
 app.use(express.static(path.join(__dirname, "../public")));
+
+// Exemplo de rota simples
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 
 // Rota para obter o clima com base nas coordenadas
 app.get("/weather", async (req, res) => {
