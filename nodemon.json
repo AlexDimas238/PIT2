@@ -1,6 +1,6 @@
 {
-  "watch": ["responsive-site/src"],
+  "watch": ["src"],
   "ext": "js,json",
   "ignore": ["node_modules"],
-  "exec": "node responsive-site/src/app.js"
+  "exec": "node src/app.js"
 }
