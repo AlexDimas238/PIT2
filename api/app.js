@@ -2,9 +2,10 @@ const express = require("express");
 const path = require("path");
 const getWeather = require("./weather");
 const capitaisBrasileiras = require("./capitaisBrasileiras"); // Importando a lista de capitais
+const serverless = require("serverless-http");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
 
 // Servir arquivos estáticos da pasta 'public'
 app.use(express.static(path.join(__dirname, "../public")));
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 // Rota para obter o clima com base nas coordenadas
-app.get("/weather", async (req, res) => {
+app.get("/api/weather", async (req, res) => {
   const coordinates = req.query.coordinates;
   if (!coordinates) {
     return res.status(400).json({ error: "Coordenadas não fornecidas" });
@@ -30,11 +31,15 @@ app.get("/weather", async (req, res) => {
 });
 
 // Rota para retornar a lista de capitais brasileiras
-app.get("/capitais", (req, res) => {
+app.get("/api/capitais", (req, res) => {
   res.json(capitaisBrasileiras);
 });
 
-// Iniciar o servidor
+/* Iniciar o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
+*/
+
+// Exportar o app como uma função serverless
+module.exports = serverless(app);

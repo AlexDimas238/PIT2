@@ -3,7 +3,7 @@ require("dotenv").config(); // Carregar as variáveis de ambiente do .env
 
 // Função para obter condições climáticas atuais para uma localização (coordenadas)
 async function getWeather(latitude, longitude) {
-  const apiKey = process.env.AZURE_API_KEY; // Obter chave de API do arquivo .env
+  const apiKey = process.env.AZURE_API_KEY; // Obter chave de API
   //Linguagem em PT-BR add no final da URL
   const url = `https://atlas.microsoft.com/weather/currentConditions/json?api-version=1.1&query=${latitude},${longitude}&unit=metric&details=true&language=pt-BR`;
 

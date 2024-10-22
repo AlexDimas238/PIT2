@@ -23,7 +23,7 @@ function getUserLocationAndWeather() {
 
 async function getWeather(coordinates) {
   try {
-    const response = await fetch(`/weather?coordinates=${coordinates}`);
+    const response = await fetch(`/api/weather?coordinates=${coordinates}`);
     const data = await response.json();
 
     const weatherDiv = document.getElementById("weather-details");

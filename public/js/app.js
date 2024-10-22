@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Função para carregar a lista de capitais
   async function loadCapitais() {
     try {
-      const response = await fetch("/capitais");
+      const response = await fetch("/api/capitais");
       if (!response.ok) throw new Error("Erro ao buscar capitais");
       const capitais = await response.json();
       const citySelect = document.getElementById("city-select");
